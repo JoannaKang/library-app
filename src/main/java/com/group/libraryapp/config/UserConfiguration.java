@@ -1,6 +1,6 @@
 package com.group.libraryapp.config;
 
-import com.group.libraryapp.repository.UserRepository;
+import com.group.libraryapp.repository.UserJdbcRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class UserConfiguration {
     // 스프링 빈에 등록한다
     @Bean
-    public UserRepository userRepository(JdbcTemplate jdbcTemplate) {
-        return new UserRepository(jdbcTemplate);
+    public UserJdbcRepository userRepository(JdbcTemplate jdbcTemplate) {
+        return new UserJdbcRepository(jdbcTemplate);
     }
 }

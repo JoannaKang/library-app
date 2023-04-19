@@ -3,17 +3,17 @@ package com.group.libraryapp.service.user;
 import com.group.libraryapp.dto.user.request.UserCreateRequest;
 import com.group.libraryapp.dto.user.request.UserUpdateRequest;
 import com.group.libraryapp.dto.user.response.UserResponse;
-import com.group.libraryapp.repository.UserRepository;
+import com.group.libraryapp.repository.UserJdbcRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserService {
-    private UserRepository userRepository;
+class UserServiceV1 {
+    private UserJdbcRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserServiceV1(UserJdbcRepository userRepository) {
         this.userRepository = userRepository;
     }
     public void saveUser(UserCreateRequest request) {
@@ -34,12 +34,13 @@ public class UserService {
     }
 
     public void deleteUser(String name) {
+        userRepository.deleteUser(name);
 
         // 반환된 리스트가 비어있다면 예외처리
         if (userRepository.isUserNotExist(name)) {
             throw new IllegalArgumentException();
         }
 
-        userRepository.deleteUser(name);
+
     }
 }
