@@ -1,18 +1,22 @@
 package com.group.libraryapp.service.user.book;
 
-import com.group.libraryapp.repository.book.BookMemoryRepository;
+import com.group.libraryapp.domain.book.BookRepository;
+import com.group.libraryapp.domain.book.Book;
+import com.group.libraryapp.dto.book.request.BookCreateRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BookService {
 
-    private final BookMemoryRepository bookMemoryRepository;
+    private final BookRepository bookRepository;
 
-    public BookService(BookMemoryRepository bookMemoryRepository) {
-        this.bookMemoryRepository = bookMemoryRepository;
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
-    public void saveBook() {
-        bookMemoryRepository.saveBook();
+    @Transactional
+    public void saveBook(BookCreateRequest request) {
+        bookRepository.save(new Book(request.getName()));
     }
 }
